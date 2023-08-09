@@ -1,0 +1,70 @@
+Select* from Employees;
+Select firstname, lastname, birthdate, address, city, state from employees;
+Select* from Tracks limit 20;
+select* From tracks where milliseconds >= 5000000;
+select* from invoices where total between 5 and 15;
+select* from customers where state IN('RJ', 'DF', 'AB', 'BC', 'CA', 'WA', 'NY');
+select* from invoices where customerid in(56,58) and total between 1 and 5;
+select* from tracks where name like 'ALL%';
+select* from customers where email like 'J%_@gmail.com';
+select* from invoices where billingcity in ('Brasilia', 'Edmonton', 'Vancouver') order by invoiceid desc;
+select customerid, count(invoiceid) as number_of_orders from invoices group by customerid order by number_of_orders desc;
+select count(name) from tracks where trackid >=12;
+select name, albumid,trackid from tracks where albumid = (select albumid from albums where title = 'Californication');
+SELECT FirstName, LastName, City, Email,
+      (SELECT COUNT(*) AS total_invoice
+      FROM Invoices WHERE Invoices.CustomerId = Customers.CustomerId) AS total_invoices
+FROM Customers
+ORDER BY CustomerId
+
+
+Select tracks.name,tracks.trackid, albums.albumid,albums.title, artists.artistid from artists join albums on artists.artistid= albums.artistid join tracks on tracks.albumid = albums.albumid where trackid = 12;
+
+select m.lastname as MAN, e.lastname as EMP
+from employees m inner join employees e on m.employeeid = e.reportsto
+
+select albums.title, artists.name, artists.artistid from artists left join albums on artists.artistid = albums.artistid where albumid is NULL; 
+
+select firstname, lastname from employees union select firstname, lastname from customers order by lastname desc;
+select customers.firstname, customers.lastname, customers.city, invoices.billingcity from customers join invoices on customers.customerid= invoices.customerid where customers.city != invoices.billingcity; 
+
+SELECT
+
+FirstName,
+
+LastName,
+
+Address,
+
+customerID,
+
+UPPER (City ||' '|| Country||'' ) as CityCountry
+
+FROM Customers
+
+Where CustomerID ='16'
+
+
+Select FirstName,
+LastName,
+lower(substr(FirstName,1,4)||substr(LastName,1,2)) as userID
+from Employees
+where FirstName='Robert' AND LastName='King'
+
+
+
+select employeeid, firstname, lastname, hiredate from employees where Date('now')-HireDate >=15 order by lastname asc;
+
+
+select Firstname, Lastname, Fax, Phone, Company, Address, PostalCode
+
+from customers 
+
+WHERE (firstname OR lastname OR fax OR Phone OR Company OR Address OR PostalCode) IS NULL;
+
+
+select city, count(customerid) as total from customers group by city order by total desc;
+
+select c.firstname || c.lastname || i.invoiceid as customer_invoice_id from customers c join invoices i on c.customerid = i.customerid where customer_invoice_id like 'Astrid%' order by c.firstname, c.lastname, i.invoiceid;
+
+
